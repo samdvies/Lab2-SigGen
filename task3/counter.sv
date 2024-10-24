@@ -12,5 +12,5 @@ module counter #(
 
 always_ff @ (posedge clk)
     if (rst) count <= '0;
-    else if(en)    count<= count + incr;
+    else    count<= count + en;
 endmodule
