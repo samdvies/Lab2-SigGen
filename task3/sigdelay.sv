@@ -1,4 +1,4 @@
-module sinegen #(
+module sigdelay #(
     parameter WIDTH = 8
 )(
     input logic                 clk,
@@ -8,9 +8,13 @@ module sinegen #(
     input logic                 rd,
     input logic [WIDTH-1:0]     offset,
     input logic [WIDTH-1:0]     mic_signal,
-    output logic [WIDTH-1:0]    delayed_signal
+    output logic [WIDTH-1:0]    delayed_signal,
+    output logic [8:0]       count,
+    output logic [8:0] readAdr
+
+
 );
-    logic [WIDTH-1:0]       count;
+
 
 counter myCounter(
     .clk (clk),
@@ -24,7 +28,7 @@ ram myRam (
     .wr_en (wr),
     .rd_en (rd),
     .wr_addr (count),
-    .rd_addr (count+offset),
+    .rd_addr (count-offset),
     .din (mic_signal)
 );
 
