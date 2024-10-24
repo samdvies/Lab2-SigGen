@@ -25,7 +25,8 @@ int main(int argc, char **argv, char **env) {
     top->clk = 1;
     top->rst = 1;
     top->en = 0;
-    top->incr = 4;
+    top->incr = 2;
+    top->step = 64;
 
 
     //run simulation for many cycles
@@ -37,14 +38,16 @@ int main(int argc, char **argv, char **env) {
             top->eval();
         }
         //plot sinewave
-        vbdPlot(int(top->dout), 0, 255);
+        vbdPlot(int(top->dout2), 0, 255);
 
+        vbdPlot(int(top->dout), 0, 255);
         vbdCycle(i+1);
         //end input selection
 
         //change input stimuli
         top->rst = 0;
         top->en = vbdFlag();
+        top->step = vbdValue();
         if ((Verilated::gotFinish()) || (vbdGetkey()=='q')) exit(0);
 
     }
